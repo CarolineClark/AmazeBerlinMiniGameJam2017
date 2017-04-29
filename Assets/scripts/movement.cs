@@ -59,5 +59,8 @@ private Rigidbody2D playerRigidbody;
 		if (Input.GetAxis ("Horizontal") > 0 || Input.GetAxis ("Horizontal") < 0){
 			playerAnimator.Play ("walk");
 		}
+		else {
+			playerAnimator.Play ("idle");
+		}
 	}
 }
