@@ -9,22 +9,37 @@ public class movement : MonoBehaviour {
 
 public float speed = 10;
 public float jumpForce = 5;
-public bool isGrounded;
+public float distanceToGround;
+public bool IsGrounded;
 
 //private variables
 
 private Rigidbody2D playerRigidbody;
-private bool jump = false;
+//private BoxCollider2D playerCollider;
+
 
 	// Use this for initialization
 	void Start () {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
+		//playerCollider = GetComponent<BoxCollider2D> ();
+
+		//distanceToGround = collider.bounds.extends.y;
 
 		Assert.IsNotNull (playerRigidbody);
 		//TODO assertion that speed floats have value.
 		//Assert.IsNotNull (speed); //assertion must be refrence type. return to this later
 	}
 	
+	void OnCollisionEnter2D(Collision2D coll)
+ {
+      IsGrounded = true;
+ }
+ 
+ void OnCollisionExit2D(Collision2D coll)
+ {
+      IsGrounded = false;
+ }
+
 	// Update is called once per frame
 	void Update () {
 		//horizontal and vertical keys set by default in input manager
@@ -34,7 +49,7 @@ private bool jump = false;
 		Vector2 move = new Vector2 (moveHorizontal,0); //vector2 shoud have the horizontal component and any vertical component desired.
 		playerRigidbody.AddForce (move * speed);
 
-		if (Input.GetKeyDown(KeyCode.UpArrow)){
+		if (Input.GetKeyDown(KeyCode.UpArrow) && IsGrounded) {
 			Debug.Log("This jumped: ");
 			playerRigidbody.velocity = new Vector2(0,0);
 			playerRigidbody.AddForce (new Vector2(0,jumpForce), ForceMode2D.Impulse);
