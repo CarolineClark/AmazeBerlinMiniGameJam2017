@@ -21,7 +21,7 @@ private Rigidbody2D playerRigidbody;
 	// Use this for initialization
 	void Start () {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
-		playerAnimator = GetComponent<Animator> ();
+		playerAnimator = GetComponentInChildren<Animator> ();
 		//playerCollider = GetComponent<BoxCollider2D> ();
 
 		//distanceToGround = collider.bounds.extends.y;
@@ -61,6 +61,12 @@ private Rigidbody2D playerRigidbody;
 		}
 		else {
 			playerAnimator.Play ("idle");
+		}
+		if (Input.GetAxis ("Horizontal") > 0){
+		transform.localRotation = Quaternion.Euler(0, 0, 0);
+		}
+		if (Input.GetAxis ("Horizontal") < 0){
+		transform.localRotation = Quaternion.Euler(0, 180, 0);
 		}
 	}
 }
