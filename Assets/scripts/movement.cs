@@ -7,10 +7,14 @@ public class movement : MonoBehaviour {
 
 //public variables
 
-public float speed;
+public float speed = 10;
+public float jumpForce = 5;
+public bool isGrounded;
 
 //private variables
+
 private Rigidbody2D playerRigidbody;
+private bool jump = false;
 
 	// Use this for initialization
 	void Start () {
@@ -22,11 +26,18 @@ private Rigidbody2D playerRigidbody;
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		//horizontal and vertical keys set by default in input manager
 		float moveHorizontal =Input.GetAxis ("Horizontal");
-		float moveVertical =Input.GetAxis ("Vertical");
-		Vector2 move = new Vector2 (moveHorizontal,moveVertical);
+		//float moveVertical =Input.GetAxis ("Vertical");
+
+		Vector2 move = new Vector2 (moveHorizontal,0); //vector2 shoud have the horizontal component and any vertical component desired.
 		playerRigidbody.AddForce (move * speed);
+
+		if (Input.GetKeyDown(KeyCode.UpArrow)){
+			Debug.Log("This jumped: ");
+			playerRigidbody.velocity = new Vector2(0,0);
+			playerRigidbody.AddForce (new Vector2(0,jumpForce), ForceMode2D.Impulse);
+		}	
 	}
 }
