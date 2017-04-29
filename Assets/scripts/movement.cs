@@ -33,12 +33,16 @@ private Rigidbody2D playerRigidbody;
 	
 	void OnCollisionEnter2D(Collision2D coll)
  {
-      IsGrounded = true;
+		if (coll.gameObject.tag == "floor") {
+			IsGrounded = true;
+		}
  }
  
  void OnCollisionExit2D(Collision2D coll)
  {
-      IsGrounded = false;
+		if (coll.gameObject.tag == "floor") {
+      		IsGrounded = false;
+		}
  }
 
 	// Update is called once per frame
