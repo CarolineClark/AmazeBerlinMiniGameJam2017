@@ -13,7 +13,7 @@ public float distanceToGround;
 public bool IsGrounded;
 
 //private variables
-
+private Animator playerAnimator;
 private Rigidbody2D playerRigidbody;
 //private BoxCollider2D playerCollider;
 
@@ -21,6 +21,7 @@ private Rigidbody2D playerRigidbody;
 	// Use this for initialization
 	void Start () {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
+		playerAnimator = GetComponent<Animator> ();
 		//playerCollider = GetComponent<BoxCollider2D> ();
 
 		//distanceToGround = collider.bounds.extends.y;
@@ -54,5 +55,9 @@ private Rigidbody2D playerRigidbody;
 			playerRigidbody.velocity = new Vector2(0,0);
 			playerRigidbody.AddForce (new Vector2(0,jumpForce), ForceMode2D.Impulse);
 		}	
+
+		if (Input.GetAxis ("Horizontal") > 0 || Input.GetAxis ("Horizontal") < 0){
+			playerAnimator.Play ("walk");
+		}
 	}
 }
